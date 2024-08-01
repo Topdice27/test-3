@@ -30,6 +30,7 @@
 
         let targetX = Math.random() * (SCREEN_WIDTH - TARGET_WIDTH);
         let targetY = Math.random() * (SCREEN_HEIGHT - TARGET_HEIGHT);
+        let targetHit = false;
 
         const bullets = [];
 
@@ -51,8 +52,7 @@
                     bullets[i].y > targetY &&
                     bullets[i].y < targetY + TARGET_HEIGHT
                 ) {
-                    targetX = Math.random() * (SCREEN_WIDTH - TARGET_WIDTH);
-                    targetY = Math.random() * (SCREEN_HEIGHT - TARGET_HEIGHT);
+                    targetHit = true;
                     bullets.splice(i, 1);
                 }
             }
@@ -73,10 +73,17 @@
         function gameLoop() {
             update();
             draw();
-            requestAnimationFrame(gameLoop);
+            if (!targetHit) {
+                requestAnimationFrame(gameLoop);
+            } else {
+                context.fillStyle = 'green';
+                context.font = '48px serif';
+                context.fillText('Target Hit!', SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2);
+            }
         }
 
         gameLoop();
     </script>
 </body>
 </html>
+
