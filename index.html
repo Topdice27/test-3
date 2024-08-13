@@ -33,7 +33,7 @@
         const TARGET_HEIGHT = 50;
 
         const BLOCK_WIDTH = 50;
-        const BLOCK_HEIGHT = 50;
+        const BLOCK_HEIGHT = 20;
 
         const BULLET_WIDTH = 5;
         const BULLET_HEIGHT = 10;
@@ -44,11 +44,11 @@
 
         function resetGame() {
             targetX = Math.random() * (SCREEN_WIDTH - TARGET_WIDTH);
-            targetY = Math.random() * (SCREEN_HEIGHT - TARGET_HEIGHT);
+            targetY = Math.random() * (SCREEN_HEIGHT / 2); // Target appears in upper half
             blockX = (SCREEN_WIDTH - BLOCK_WIDTH) / 2;
             blockY = SCREEN_HEIGHT - BLOCK_HEIGHT - 10;
             gameEnded = false;
-            bullets.length = 0; // Clear the bullets array
+            bullets.length = 0;
             tryAgainBtn.style.display = 'none';
             gameLoop();
         }
@@ -120,3 +120,4 @@
     </script>
 </body>
 </html>
+
