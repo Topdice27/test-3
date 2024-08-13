@@ -32,25 +32,30 @@
         const TARGET_WIDTH = 50;
         const TARGET_HEIGHT = 50;
 
+        const BLOCK_WIDTH = 50;
+        const BLOCK_HEIGHT = 50;
+
         const BULLET_WIDTH = 5;
         const BULLET_HEIGHT = 10;
         const BULLET_SPEED = 10;
 
-        let targetX, targetY, gameEnded;
+        let targetX, targetY, gameEnded, blockX, blockY;
         const bullets = [];
 
         function resetGame() {
             targetX = Math.random() * (SCREEN_WIDTH - TARGET_WIDTH);
             targetY = Math.random() * (SCREEN_HEIGHT - TARGET_HEIGHT);
+            blockX = (SCREEN_WIDTH - BLOCK_WIDTH) / 2;
+            blockY = SCREEN_HEIGHT - BLOCK_HEIGHT - 10;
             gameEnded = false;
-            bullets.length = 0; // Clear the bullets array
+            bullets.length = 0;
             tryAgainBtn.style.display = 'none';
             gameLoop();
         }
 
         canvas.addEventListener('mousedown', (event) => {
-            const bulletX = event.offsetX;
-            const bulletY = SCREEN_HEIGHT - BULLET_HEIGHT;
+            const bulletX = blockX + BLOCK_WIDTH / 2 - BULLET_WIDTH / 2;
+            const bulletY = blockY;
             if (!gameEnded) {
                 bullets.push({ x: bulletX, y: bulletY });
             }
@@ -83,6 +88,9 @@
             if (!gameEnded) {
                 context.fillStyle = 'red';
                 context.fillRect(targetX, targetY, TARGET_WIDTH, TARGET_HEIGHT);
+
+                context.fillStyle = 'blue';
+                context.fillRect(blockX, blockY, BLOCK_WIDTH, BLOCK_HEIGHT);
 
                 context.fillStyle = 'black';
                 for (const bullet of bullets) {
